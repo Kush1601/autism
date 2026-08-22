@@ -23,13 +23,20 @@ A full-stack web application for early autism screening, therapy tracking, and A
 
 Requires Node.js 18+ and npm.
 
-1. Install dependencies:
+1. Clone the repository and move into it:
+
+   ```bash
+   git clone https://github.com/Kush1601/autism.git
+   cd autism/autism-screening
+   ```
+
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Copy the example env file and fill in your values:
+3. Copy the example env file and fill in your values:
 
    ```bash
    cp .env.example .env
@@ -41,13 +48,13 @@ Requires Node.js 18+ and npm.
 
    `DATABASE_URL` is set directly in `next.config.mjs` (points at the local `dev.db` SQLite file) and does not need to go in `.env`.
 
-3. Run database migrations:
+4. Run database migrations:
 
    ```bash
    npx prisma migrate dev
    ```
 
-4. Start the dev server:
+5. Start the dev server:
 
    ```bash
    npm run dev

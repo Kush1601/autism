@@ -23,56 +23,84 @@ export default async function ActivitiesPage({ params }: { params: { childId: st
         <h1 className="text-3xl font-bold">Activities for {child.name}</h1>
         <p className="text-muted-foreground">Use these brief, guided activities alongside your care plan.</p>
       </div>
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card className="ring-pine-100 transition-colors hover:ring-pine-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-pine-600" />
-              Emotion matching
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Look at a face and pick the emotion it shows. A quick, playable game your child can try right on the
-              screen.
+      <div>
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          Play on screen
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className="overflow-hidden ring-pine-100 transition-colors hover:ring-pine-300">
+            <div className="h-1.5 bg-gradient-to-r from-amber-300 via-amber-400 to-pine-400" />
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span className="flex items-center gap-2.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50">
+                    <Sparkles className="h-4 w-4 text-amber-600" />
+                  </span>
+                  Emotion matching
+                </span>
+                <span className="rounded-full bg-pine-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-pine-700">
+                  Game
+                </span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Look at a face and pick the emotion it shows. A quick, playable game your child can try right on the
+                screen.
+              </p>
+              <Button asChild size="sm" className="rounded-full">
+                <Link href={`/therapy/${child.id}/games/emotion`}>Play emotion matching</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden ring-pine-100 transition-colors hover:ring-pine-300">
+            <div className="h-1.5 bg-gradient-to-r from-pine-300 via-pine-500 to-amber-400" />
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span className="flex items-center gap-2.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-pine-50">
+                    <Gamepad2 className="h-4 w-4 text-pine-600" />
+                  </span>
+                  Pattern play
+                </span>
+                <span className="rounded-full bg-pine-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-pine-700">
+                  Game
+                </span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Watch a short sequence of shapes and colours, then pick what comes next. A gentle pattern-recognition
+                game with a few rounds.
+              </p>
+              <Button asChild size="sm" className="rounded-full">
+                <Link href={`/therapy/${child.id}/games/pattern`}>Play pattern play</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          Do together, offline
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <article className="rounded-xl border border-dashed p-5">
+            <h3 className="font-semibold">Turn-taking game</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Practice short, predictable turns using a favourite toy or activity.
             </p>
-            <Button asChild size="sm">
-              <Link href={`/therapy/${child.id}/games/emotion`}>Play emotion matching</Link>
-            </Button>
-          </CardContent>
-        </Card>
+          </article>
 
-        <Card className="ring-pine-100 transition-colors hover:ring-pine-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Gamepad2 className="h-4 w-4 text-pine-600" />
-              Pattern play
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Watch a short sequence of shapes and colours, then pick what comes next. A gentle pattern-recognition
-              game with a few rounds.
+          <article className="rounded-xl border border-dashed p-5">
+            <h3 className="font-semibold">Sensory check-in</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Ask what feels comfortable today and adjust the environment as needed.
             </p>
-            <Button asChild size="sm">
-              <Link href={`/therapy/${child.id}/games/pattern`}>Play pattern play</Link>
-            </Button>
-          </CardContent>
-        </Card>
-
-        <article className="rounded-xl border p-5">
-          <h2 className="font-semibold">Turn-taking game</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Practice short, predictable turns using a favourite toy or activity.
-          </p>
-        </article>
-
-        <article className="rounded-xl border p-5">
-          <h2 className="font-semibold">Sensory check-in</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Ask what feels comfortable today and adjust the environment as needed.
-          </p>
-        </article>
+          </article>
+        </div>
       </div>
       <Link
         href="/dashboard/therapy"

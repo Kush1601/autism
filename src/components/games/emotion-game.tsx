@@ -6,6 +6,8 @@ import { Check, X, Sparkles } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { submitInteractiveGameFeedbackAction } from "@/app/actions/therapy";
+import { GameProgressDots } from "@/components/games/game-progress-dots";
+import { GameScoreRing } from "@/components/games/game-score-ring";
 
 const FACES = [
   { emotion: "Happy", emoji: "😀" },
@@ -43,6 +45,13 @@ function buildRounds(): Round[] {
     const options = shuffle([face.emotion, ...wrongCandidates]);
     return { emoji: face.emoji, emotion: face.emotion, options };
   });
+}
+
+function scoreMessage(correct: number, total: number) {
+  const ratio = correct / total;
+  if (ratio >= 0.8) return "Wonderful emotion spotting!";
+  if (ratio >= 0.5) return "Nice work reading those faces.";
+  return "Good try — reading faces takes practice.";
 }
 
 export function EmotionGame({ childId, childName }: { childId: string; childName: string }) {
@@ -89,19 +98,22 @@ export function EmotionGame({ childId, childName }: { childId: string; childName
 
   if (phase === "intro") {
     return (
-      <Card>
+      <Card className="overflow-hidden">
+        <div className="h-1.5 bg-gradient-to-r from-amber-300 via-amber-400 to-pine-400" />
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-pine-600" />
+          <CardTitle className="flex items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50">
+              <Sparkles className="h-5 w-5 text-amber-600" />
+            </span>
             Emotion matching
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm leading-relaxed text-muted-foreground">
             {childName} will see a face and pick the word that matches how it feels. There are {TOTAL_ROUNDS} short
             rounds — talk through the clues in the face together as you go.
           </p>
-          <Button size="lg" onClick={() => setPhase("playing")}>
+          <Button size="lg" onClick={() => setPhase("playing")} className="rounded-full">
             Start emotion matching
           </Button>
         </CardContent>
@@ -110,38 +122,41 @@ export function EmotionGame({ childId, childName }: { childId: string; childName
   }
 
   if (phase === "complete") {
-    const score = Math.max(1, Math.round((correctCount / TOTAL_ROUNDS) * 10));
     return (
-      <Card>
+      <Card className="overflow-hidden">
+        <div className="h-1.5 bg-gradient-to-r from-amber-300 via-amber-400 to-pine-400" />
         <CardHeader>
           <CardTitle>Great work, {childName}!</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-5">
-          <p className="text-sm text-muted-foreground">
-            {childName} matched <span className="font-semibold text-foreground">{correctCount}</span> out of{" "}
-            {TOTAL_ROUNDS} emotions correctly.
-          </p>
-          <div className="rounded-lg bg-pine-50 px-4 py-3 text-sm font-medium text-pine-800">Score: {score} / 10</div>
+        <CardContent className="space-y-6">
+          <div className="flex items-center gap-5">
+            <GameScoreRing correct={correctCount} total={TOTAL_ROUNDS} />
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {scoreMessage(correctCount, TOTAL_ROUNDS)} {childName} matched{" "}
+              <span className="font-semibold text-foreground">{correctCount}</span> out of {TOTAL_ROUNDS} emotions
+              correctly.
+            </p>
+          </div>
 
           {isPending && <p className="text-sm text-muted-foreground">Saving progress…</p>}
           {submitResult?.success && (
-            <div className="rounded-lg border border-pine-100 bg-pine-50/60 px-4 py-3 text-sm text-pine-900">
+            <div className="rounded-xl border border-pine-100 bg-pine-50/60 px-4 py-3 text-sm text-pine-900">
               Progress saved. {submitResult.feedback === "continue_plan"
                 ? "Looks like the current plan is working well."
                 : "The feedback agent suggests shorter rounds or a different activity next time."}
             </div>
           )}
           {submitResult?.error && (
-            <div className="rounded-lg border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+            <div className="rounded-xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive">
               {submitResult.error}
             </div>
           )}
 
           <div className="flex flex-wrap gap-3 pt-2">
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="rounded-full">
               <Link href={`/therapy/${childId}`}>Back to activities</Link>
             </Button>
-            <Button asChild>
+            <Button asChild className="rounded-full">
               <Link href={`/monitoring?childId=${childId}`}>View progress in monitoring</Link>
             </Button>
           </div>
@@ -151,23 +166,24 @@ export function EmotionGame({ childId, childName }: { childId: string; childName
   }
 
   return (
-    <Card>
+    <Card className="overflow-hidden">
+      <div className="h-1.5 bg-gradient-to-r from-amber-300 via-amber-400 to-pine-400" />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-pine-600" />
+          <span className="flex items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50">
+              <Sparkles className="h-5 w-5 text-amber-600" />
+            </span>
             Emotion matching
           </span>
-          <span className="text-sm font-normal text-muted-foreground">
-            Round {roundIndex + 1} of {TOTAL_ROUNDS}
-          </span>
+          <GameProgressDots total={TOTAL_ROUNDS} current={roundIndex} />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <p className="text-sm text-muted-foreground">Which word matches this face?</p>
 
-        <div className="flex items-center justify-center rounded-lg bg-muted/50 p-8">
-          <span className="text-7xl">{round.emoji}</span>
+        <div className="flex items-center justify-center rounded-2xl bg-amber-50/40 p-8">
+          <span className="text-8xl">{round.emoji}</span>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -181,15 +197,25 @@ export function EmotionGame({ childId, childName }: { childId: string; childName
                 type="button"
                 onClick={() => handleAnswer(option)}
                 disabled={selected !== null}
-                className={`flex h-16 items-center justify-center rounded-lg text-base font-medium ring-1 transition-colors ${
+                className={`relative flex h-20 items-center justify-center rounded-2xl text-base font-medium shadow-sm ring-1 transition-all active:scale-95 disabled:active:scale-100 ${
                   showCorrect
                     ? "bg-pine-50 text-pine-800 ring-2 ring-pine-500"
                     : showWrong
                       ? "bg-destructive/5 text-destructive ring-2 ring-destructive/40"
-                      : "bg-card text-foreground ring-border hover:bg-muted"
+                      : "bg-card text-foreground ring-border hover:bg-muted hover:ring-pine-200"
                 } disabled:cursor-default`}
               >
                 {option}
+                {showCorrect && (
+                  <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-pine-500 text-white">
+                    <Check className="h-3.5 w-3.5" />
+                  </span>
+                )}
+                {showWrong && (
+                  <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-destructive text-white">
+                    <X className="h-3.5 w-3.5" />
+                  </span>
+                )}
               </button>
             );
           })}
@@ -197,17 +223,17 @@ export function EmotionGame({ childId, childName }: { childId: string; childName
 
         {selected !== null && (
           <div
-            className={`flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium ${
+            className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium ${
               isCorrect ? "bg-pine-50 text-pine-800" : "bg-amber-50 text-amber-800"
             }`}
           >
-            {isCorrect ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+            {isCorrect ? <Check className="h-4 w-4 shrink-0" /> : <X className="h-4 w-4 shrink-0" />}
             {isCorrect ? "That's right!" : `Not quite — this face looks ${round.emotion.toLowerCase()}`}
           </div>
         )}
 
         {selected !== null && (
-          <Button size="lg" onClick={handleContinue}>
+          <Button size="lg" onClick={handleContinue} className="rounded-full">
             {isLastRound ? "See results" : "Next round"}
           </Button>
         )}

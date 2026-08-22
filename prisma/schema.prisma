@@ -1,0 +1,118 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String    // Hashed with bcrypt
+  fullName      String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  children      Child[]
+  chatMessages  ChatMessage[]
+}
+
+model Child {
+  id              String        @id @default(cuid())
+  userId          String
+  name            String
+  age             Int
+  gender          String
+  ethnicity       String?
+  bornWithJaundice Boolean      @default(false)
+  familyASDHistory Boolean      @default(false)
+  country         String?
+  whoCompleting   String?       // Parent, Relative, Healthcare Professional
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  screenings      Screening[]
+  therapyPlans    TherapyPlan[]
+  progressReports ProgressReport[]
+
+  @@index([userId])
+}
+
+model Screening {
+  id              String   @id @default(cuid())
+  childId         String
+  
+  // 10 Autism Screening Questions (A1-A10)
+  a1Score         Int      // 0 or 1
+  a2Score         Int
+  a3Score         Int
+  a4Score         Int
+  a5Score         Int
+  a6Score         Int
+  a7Score         Int
+  a8Score         Int
+  a9Score         Int
+  a10Score        Int
+  
+  totalScore      Int      // Sum of A1-A10
+  riskLevel       String   // "Low", "Medium", "High"
+  aiPrediction    String   // "NO" or "YES"
+  confidence      Float    // 0-100%
+  
+  completedAt     DateTime @default(now())
+  child           Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@index([childId])
+}
+
+model TherapyPlan {
+  id              String   @id @default(cuid())
+  childId         String
+  screeningId     String?
+  therapyType     String   // "Speech", "Behavioral", "Occupational", etc.
+  description     String
+  startDate       DateTime
+  status          String   @default("Active") // Active, Paused, Completed
+  createdAt       DateTime @default(now())
+  child           Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+  sessions        TherapySession[]
+
+  @@index([childId])
+}
+
+model TherapySession {
+  id              String   @id @default(cuid())
+  therapyPlanId   String
+  sessionDate     DateTime
+  duration        Int      // minutes
+  notes           String?
+  improvementScore Int?    // 1-10 scale
+  therapyPlan     TherapyPlan @relation(fields: [therapyPlanId], references: [id], onDelete: Cascade)
+}
+
+model ProgressReport {
+  id              String   @id @default(cuid())
+  childId         String
+  reportDate      DateTime @default(now())
+  overallScore    Float    // Improvement metric
+  milestones      String   // JSON string
+  concerns        String?
+  child           Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@index([childId])
+}
+
+model ChatMessage {
+  id              String   @id @default(cuid())
+  userId          String
+  childId         String?
+  message         String
+  response        String
+  createdAt       DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([childId])
+}

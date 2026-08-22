@@ -11,14 +11,14 @@ interface ChartData {
 export const ProgressChart = ({ data }: { data: ChartData[] }) => {
   const isEmpty = data.length === 0;
   return (
-    <Card className="w-full h-full border-none shadow-md">
+    <Card className="h-full w-full">
       <CardHeader>
-        <CardTitle className="text-sm font-medium">Developmental Progress Over Time</CardTitle>
+        <CardTitle className="text-sm font-medium">Developmental progress over time</CardTitle>
         <CardDescription>Screening scores across clinical evaluations.</CardDescription>
       </CardHeader>
       <CardContent className="h-[300px] w-full pt-4">
         {isEmpty ? (
-          <div className="h-full flex flex-col items-center justify-center text-neutral-400 gap-2">
+          <div className="h-full flex flex-col items-center justify-center text-muted-foreground gap-2">
             <p className="text-sm font-medium">No screenings completed yet</p>
             <p className="text-xs">Complete your first screening to see progress here</p>
           </div>

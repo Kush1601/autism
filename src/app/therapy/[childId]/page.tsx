@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { Gamepad2, Sparkles } from "lucide-react";
+import { ArrowRight, ClipboardList, Gamepad2, Sparkles } from "lucide-react";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { ChildBackLink } from "@/components/child-back-link";
@@ -102,12 +102,23 @@ export default async function ActivitiesPage({ params }: { params: { childId: st
           </article>
         </div>
       </div>
-      <Link
-        href="/dashboard/therapy"
-        className="text-sm font-medium text-primary underline-offset-4 transition-colors hover:text-primary-dark hover:underline"
-      >
-        Log a therapy session or view plans
-      </Link>
+      <Card className="flex flex-col items-start justify-between gap-4 p-5 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-3">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-pine-50">
+            <ClipboardList className="h-5 w-5 text-pine-600" />
+          </span>
+          <div>
+            <p className="font-semibold text-foreground">Therapy plans & sessions</p>
+            <p className="text-sm text-muted-foreground">Log a session or review the current care plan.</p>
+          </div>
+        </div>
+        <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
+          <Link href="/dashboard/therapy">
+            Go to therapy management
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </Button>
+      </Card>
     </main>
   );
 }

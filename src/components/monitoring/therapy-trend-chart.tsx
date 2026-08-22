@@ -11,14 +11,14 @@ interface TherapyData {
 export const TherapyTrendChart = ({ data }: { data: TherapyData[] }) => {
   const isEmpty = data.length === 0;
   return (
-    <Card className="w-full h-full border-none shadow-md bg-amber-50/40">
+    <Card className="h-full w-full bg-amber-50/40">
       <CardHeader>
-        <CardTitle className="text-sm font-medium text-amber-800">Therapy Sessions Progress</CardTitle>
+        <CardTitle className="text-sm font-medium text-amber-800">Therapy sessions progress</CardTitle>
         <CardDescription>Daily improvement scores from therapy logs.</CardDescription>
       </CardHeader>
       <CardContent className="h-[300px] w-full pt-4">
         {isEmpty ? (
-          <div className="h-full flex flex-col items-center justify-center text-neutral-400 gap-2">
+          <div className="h-full flex flex-col items-center justify-center text-muted-foreground gap-2">
             <p className="text-sm font-medium">No therapy sessions logged yet</p>
             <p className="text-xs">Log your first session to see trends here</p>
           </div>

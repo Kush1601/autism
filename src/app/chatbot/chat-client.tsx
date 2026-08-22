@@ -16,7 +16,7 @@ function TypingDots() {
       {[0, 1, 2].map((i) => (
         <span
           key={i}
-          className="h-2 w-2 rounded-full bg-emerald-400 animate-bounce"
+          className="h-2 w-2 rounded-full bg-pine-400 animate-bounce"
           style={{ animationDelay: `${i * 0.15}s` }}
         />
       ))}
@@ -76,12 +76,12 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-b from-emerald-50/40 to-white">
+    <div className="flex flex-col h-screen bg-gradient-to-b from-pine-50/40 to-white">
       {/* Header */}
       <header className="flex-none flex items-center gap-3 px-5 py-3.5 bg-white border-b border-neutral-100 shadow-sm z-10">
         <Link
           href="/dashboard"
-          className="flex items-center gap-1.5 text-neutral-400 hover:text-emerald-600 transition-colors text-sm font-medium mr-1"
+          className="flex items-center gap-1.5 text-neutral-400 hover:text-pine-600 transition-colors text-sm font-medium mr-1"
         >
           <ArrowLeft className="h-4 w-4" />
           Back
@@ -90,7 +90,7 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
         <div className="w-px h-5 bg-neutral-200" />
 
         <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-sm">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-pine-500 to-pine-600 flex items-center justify-center shadow-sm">
             <Stethoscope className="h-5 w-5 text-white" />
           </div>
           <div>
@@ -101,7 +101,7 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+        <div className="ml-auto flex items-center gap-1.5 text-[11px] font-medium text-pine-600 bg-pine-50 px-2.5 py-1 rounded-full border border-pine-100">
           <Sparkles className="h-3 w-3" />
           AI Powered
         </div>
@@ -116,7 +116,7 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
               className={`flex items-end gap-2.5 ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               {m.role === "ai" && (
-                <div className="h-7 w-7 shrink-0 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-sm mb-0.5">
+                <div className="h-7 w-7 shrink-0 rounded-lg bg-gradient-to-br from-pine-500 to-pine-600 flex items-center justify-center shadow-sm mb-0.5">
                   <Bot className="h-3.5 w-3.5 text-white" />
                 </div>
               )}
@@ -125,11 +125,11 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
                 className={`max-w-[78%] px-4 py-3 text-sm leading-relaxed ${
                   m.role === "ai"
                     ? "bg-white rounded-2xl rounded-bl-sm shadow-sm border border-neutral-100 text-neutral-800"
-                    : "bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-2xl rounded-br-sm shadow-md"
+                    : "bg-gradient-to-br from-pine-500 to-pine-600 text-white rounded-2xl rounded-br-sm shadow-md"
                 }`}
               >
                 {m.role === "ai" ? (
-                  <div className="prose prose-sm prose-neutral max-w-none prose-p:my-1 prose-ul:my-1.5 prose-li:my-0.5 prose-headings:mt-2 prose-headings:mb-1 prose-strong:text-emerald-700">
+                  <div className="prose prose-sm prose-neutral max-w-none prose-p:my-1 prose-ul:my-1.5 prose-li:my-0.5 prose-headings:mt-2 prose-headings:mb-1 prose-strong:text-pine-700">
                     <ReactMarkdown>{m.content}</ReactMarkdown>
                   </div>
                 ) : (
@@ -141,7 +141,7 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
 
           {isLoading && (
             <div className="flex items-end gap-2.5 justify-start">
-              <div className="h-7 w-7 shrink-0 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-sm">
+              <div className="h-7 w-7 shrink-0 rounded-lg bg-gradient-to-br from-pine-500 to-pine-600 flex items-center justify-center shadow-sm">
                 <Bot className="h-3.5 w-3.5 text-white" />
               </div>
               <div className="bg-white rounded-2xl rounded-bl-sm shadow-sm border border-neutral-100 px-4 py-3">
@@ -157,7 +157,7 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
       {/* Input bar */}
       <div className="flex-none bg-white border-t border-neutral-100 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
         <div className="max-w-2xl mx-auto">
-          <div className="flex items-center gap-2 bg-neutral-50 border border-neutral-200 rounded-2xl px-4 py-2 focus-within:border-emerald-400 focus-within:ring-2 focus-within:ring-emerald-100 transition-all">
+          <div className="flex items-center gap-2 bg-neutral-50 border border-neutral-200 rounded-2xl px-4 py-2 focus-within:border-pine-400 focus-within:ring-2 focus-within:ring-pine-100 transition-all">
             <input
               className="flex-1 bg-transparent text-sm text-neutral-800 placeholder:text-neutral-400 outline-none py-1.5 min-w-0"
               placeholder={childName ? `Ask about ${childName}'s progress, therapies, or concerns…` : "Ask about screening results, therapies, or concerns…"}
@@ -169,7 +169,7 @@ export function ChatClient({ childId, childName }: { childId: string | null; chi
             <button
               onClick={handleSend}
               disabled={isLoading || !input.trim()}
-              className="h-8 w-8 flex items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-sm disabled:opacity-40 disabled:cursor-not-allowed hover:from-emerald-600 hover:to-emerald-700 transition-all shrink-0"
+              className="h-8 w-8 flex items-center justify-center rounded-xl bg-gradient-to-br from-pine-500 to-pine-600 text-white shadow-sm disabled:opacity-40 disabled:cursor-not-allowed hover:from-pine-600 hover:to-pine-700 transition-all shrink-0"
             >
               {isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
             </button>

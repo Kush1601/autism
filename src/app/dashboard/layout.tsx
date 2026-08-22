@@ -9,7 +9,7 @@ const SidebarContent = ({ session }: { session: Session | null }) => (
   <div className="flex flex-col h-full bg-white">
     <div className="p-8">
       <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl text-primary">
-        <div className="bg-emerald-50 p-2 rounded-lg">
+        <div className="bg-pine-50 p-2 rounded-lg">
           <Activity className="h-6 w-6" />
         </div>
         <span className="tracking-tight">Early Autism</span>
@@ -56,7 +56,7 @@ const SidebarContent = ({ session }: { session: Session | null }) => (
 
     <div className="p-6 border-t border-neutral-100">
       <div className="flex items-center gap-3 px-2 py-4 mb-4 bg-neutral-50 rounded-2xl border border-neutral-100">
-        <div className="h-10 w-10 rounded-xl bg-primary text-white flex items-center justify-center font-bold shadow-md shadow-emerald-200">
+        <div className="h-10 w-10 rounded-xl bg-primary text-white flex items-center justify-center font-bold shadow-md shadow-pine-200">
           {session?.user?.name?.[0] || "U"}
         </div>
         <div className="flex-1 min-w-0">
@@ -95,7 +95,7 @@ export default async function DashboardLayout({
   const session = await auth();
 
   return (
-    <div className="flex h-screen bg-[#fcfcfc]">
+    <div className="flex h-screen bg-background">
       {/* Desktop Sidebar */}
       <aside className="w-72 bg-white border-r border-neutral-100 hidden md:flex flex-col shrink-0">
         <SidebarContent session={session} />
@@ -126,7 +126,7 @@ export default async function DashboardLayout({
           </div>
           
           <div className="ml-auto flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full border border-emerald-100">
+            <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-pine-50 rounded-full border border-pine-100">
                <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                <span className="text-xs font-bold text-primary uppercase tracking-widest leading-none mt-0.5">Live Agent Active</span>
             </div>

@@ -60,7 +60,8 @@ model Screening {
   riskLevel       String   // "Low", "Medium", "High"
   aiPrediction    String   // "NO" or "YES"
   confidence      Float    // 0-100%
-  
+  mlModelUsed     Boolean  @default(false) // true if the ML service produced this prediction, false if it's the rule-based fallback
+
   completedAt     DateTime @default(now())
   child           Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
 

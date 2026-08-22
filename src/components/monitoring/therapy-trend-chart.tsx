@@ -11,9 +11,9 @@ interface TherapyData {
 export const TherapyTrendChart = ({ data }: { data: TherapyData[] }) => {
   const isEmpty = data.length === 0;
   return (
-    <Card className="w-full h-full border-none shadow-md bg-blue-50/30">
+    <Card className="w-full h-full border-none shadow-md bg-amber-50/40">
       <CardHeader>
-        <CardTitle className="text-sm font-medium text-blue-800">Therapy Sessions Progress</CardTitle>
+        <CardTitle className="text-sm font-medium text-amber-800">Therapy Sessions Progress</CardTitle>
         <CardDescription>Daily improvement scores from therapy logs.</CardDescription>
       </CardHeader>
       <CardContent className="h-[300px] w-full pt-4">
@@ -44,10 +44,10 @@ export const TherapyTrendChart = ({ data }: { data: TherapyData[] }) => {
               cursor={{ fill: '#f3f4f6' }}
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
             />
-            <Bar 
-              dataKey="score" 
-              fill="#3b82f6" 
-              radius={[4, 4, 0, 0]} 
+            <Bar
+              dataKey="score"
+              fill="#D98E3E"
+              radius={[4, 4, 0, 0]}
               barSize={30}
             />
           </BarChart>

@@ -21,9 +21,23 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        // Pine — a muted, grown-up forest green (the app's "growth" color).
+        // Deliberately not Tailwind's stock emerald swatch.
+        pine: {
+          50: "#F1F7F1",
+          100: "#DCEBE0",
+          200: "#B9D7C1",
+          300: "#93BFA3",
+          400: "#6FA184",
+          500: "#4C8468",
+          600: "#386B52",
+          700: "#2B5641",
+          800: "#234636",
+          900: "#1C3A2C",
+        },
         primary: {
-          DEFAULT: "#059669", // Emerald 600
-          dark: "#047857", // Emerald 700
+          DEFAULT: "#386B52", // Pine 600
+          dark: "#2B5641", // Pine 700
           foreground: "#ffffff",
         },
         secondary: {
@@ -39,8 +53,8 @@ const config: Config = {
           foreground: "#64748b",
         },
         accent: {
-          DEFAULT: "#ecfdf5", // Emerald 50
-          foreground: "#059669",
+          DEFAULT: "#F1F7F1", // Pine 50
+          foreground: "#386B52",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -50,6 +64,10 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui"],
+        display: ["var(--font-display)", "var(--font-sans)", "ui-sans-serif", "system-ui"],
       },
       borderRadius: {
         lg: "12px",

@@ -45,6 +45,7 @@ export async function submitScreeningAction(values: z.infer<typeof ScreeningSche
   // Call ML API
   let aiPrediction = totalScore >= 7 ? "YES" : "NO";
   let confidence = 80.0 + (totalScore * 2);
+  let mlModelUsed = false;
 
   try {
     const mlApiUrl = process.env.ML_API_URL ?? "http://localhost:5000";
@@ -64,6 +65,7 @@ export async function submitScreeningAction(values: z.infer<typeof ScreeningSche
       const result = await predictResponse.json();
       aiPrediction = result.prediction;
       confidence = result.confidence;
+      mlModelUsed = true;
     }
   } catch {
     console.error("ML API call failed, falling back to rule-based prediction");
@@ -77,6 +79,7 @@ export async function submitScreeningAction(values: z.infer<typeof ScreeningSche
         riskLevel,
         aiPrediction,
         confidence: Math.min(confidence, 99.9),
+        mlModelUsed,
       },
     });
 

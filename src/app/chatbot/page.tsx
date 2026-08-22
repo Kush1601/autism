@@ -36,16 +36,16 @@ export default async function ChatbotPage({
 
   if (children.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-emerald-50/40 to-white flex flex-col">
+      <div className="min-h-screen bg-gradient-to-b from-pine-50/40 to-white flex flex-col">
         <header className="flex-none flex items-center gap-3 px-5 py-3.5 bg-white border-b border-neutral-100 shadow-sm">
-          <Link href="/dashboard" className="flex items-center gap-1.5 text-sm font-medium text-neutral-400 hover:text-emerald-600 transition-colors">
+          <Link href="/dashboard" className="flex items-center gap-1.5 text-sm font-medium text-neutral-400 hover:text-pine-600 transition-colors">
             <ArrowLeft className="h-4 w-4" />
             Back
           </Link>
         </header>
         <div className="flex-1 flex items-center justify-center px-4">
           <div className="max-w-sm text-center space-y-5">
-            <div className="h-16 w-16 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto border border-emerald-100">
+            <div className="h-16 w-16 rounded-2xl bg-pine-50 flex items-center justify-center mx-auto border border-pine-100">
               <Users className="h-8 w-8 text-primary" />
             </div>
             <div>

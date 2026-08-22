@@ -47,9 +47,9 @@ export const ProgressChart = ({ data }: { data: ChartData[] }) => {
             <Line 
               type="monotone" 
               dataKey="score" 
-              stroke="#10b981" 
+              stroke="#386B52" 
               strokeWidth={3} 
-              dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#fff' }}
+              dot={{ r: 4, fill: '#386B52', strokeWidth: 2, stroke: '#fff' }}
               activeDot={{ r: 6, strokeWidth: 0 }}
             />
           </LineChart>

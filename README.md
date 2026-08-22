@@ -34,9 +34,10 @@ cp .env.example .env
 ```
 
 Required env vars:
-- `DATABASE_URL` — SQLite path e.g. `file:./dev.db`
-- `NEXTAUTH_SECRET` — generate with `openssl rand -base64 32`
+- `AUTH_SECRET` — generate with `openssl rand -base64 32`
 - `ANTHROPIC_API_KEY` — from [console.anthropic.com](https://console.anthropic.com)
+
+(`DATABASE_URL` is configured directly in `next.config.mjs`, not `.env`.)
 
 3. Run database migrations:
 
@@ -60,11 +61,12 @@ If you want ML-based autism risk prediction instead of rule-based scoring:
 cd ml
 python -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-python predict_api.py
+pip install fastapi uvicorn joblib pandas scikit-learn
+cd ..
+npm run ml:predict
 ```
 
-Then set `ML_API_URL=http://localhost:5000` in your `.env`. If not running, the app falls back to rule-based scoring automatically.
+This starts the FastAPI service on `http://localhost:5000` (override with `ML_API_URL` in `.env`). If it isn't running, the app falls back to rule-based scoring automatically.
 
 ## Viewing the Database
 
@@ -84,6 +86,6 @@ Opens at [http://localhost:5555](http://localhost:5555) — lets you view and ed
 4. View risk results and AI prediction
 5. Create a therapy plan
 6. Log therapy sessions
-7. Play therapy games
+7. Play a therapy game (pattern play or emotion matching) from the child's Activities page
 8. Chat with the AI Doctor about the child's progress
 9. View monitoring charts and feedback reports

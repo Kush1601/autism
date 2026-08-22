@@ -61,7 +61,7 @@ export default async function MonitoringPage({
   }));
 
   return (
-    <div className="space-y-8 min-h-screen bg-[#fcfcfc] px-4 md:px-8 py-8">
+    <div className="space-y-8 min-h-screen bg-background px-4 md:px-8 py-8">
       <header className="flex flex-wrap items-center gap-4 border-b border-neutral-100 pb-4">
         <Link href="/dashboard" className="flex items-center gap-2 font-bold text-primary">
           <Activity className="h-5 w-5" />
@@ -105,7 +105,7 @@ export default async function MonitoringPage({
       </div>
 
       {feedbackBanner && (
-        <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-sm font-medium text-emerald-900">
+        <div className="rounded-xl border border-pine-100 bg-pine-50/60 px-4 py-3 text-sm font-medium text-pine-900">
           {feedbackBanner}
         </div>
       )}
@@ -127,9 +127,9 @@ export default async function MonitoringPage({
             </CardContent>
           </Card>
 
-          <Card className="bg-blue-50/50 border-none shadow-sm">
+          <Card className="bg-secondary/60 border-none shadow-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-blue-600">Active Therapies</CardTitle>
+              <CardTitle className="text-sm font-medium text-foreground">Active Therapies</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{mainChild.therapyPlans.length}</div>
@@ -137,9 +137,9 @@ export default async function MonitoringPage({
             </CardContent>
           </Card>
 
-          <Card className="bg-emerald-50/50 border-none shadow-sm">
+          <Card className="bg-pine-50/50 border-none shadow-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-emerald-600">Milestones</CardTitle>
+              <CardTitle className="text-sm font-medium text-pine-600">Milestones</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{mainChild.progressReports.length}</div>
@@ -204,14 +204,14 @@ export default async function MonitoringPage({
                   const isGood = agent === "continue_plan";
                   return (
                     <div key={report.id} className="flex items-center gap-4 p-3 rounded-lg bg-neutral-50 border">
-                      <div className={`h-2 w-2 rounded-full flex-shrink-0 ${isGood ? "bg-emerald-500" : "bg-orange-500"}`} />
+                      <div className={`h-2 w-2 rounded-full flex-shrink-0 ${isGood ? "bg-pine-500" : "bg-orange-500"}`} />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium capitalize">{source}</p>
                         {detail && <p className="text-xs text-neutral-400">{detail}</p>}
                       </div>
                       <Badge
                         variant="outline"
-                        className={`ml-auto flex-shrink-0 ${isGood ? "bg-emerald-50 text-emerald-700" : "bg-orange-50 text-orange-700"}`}
+                        className={`ml-auto flex-shrink-0 ${isGood ? "bg-pine-50 text-pine-700" : "bg-orange-50 text-orange-700"}`}
                       >
                         {isGood ? "On track" : "Needs review"}
                       </Badge>
@@ -222,7 +222,7 @@ export default async function MonitoringPage({
                 }
               })}
               {mainChild.progressReports.length === 0 && (
-                <p className="text-sm text-neutral-500 italic">No progress reports yet. Complete a therapy session or game to see feedback here.</p>
+                <p className="text-sm text-neutral-500 italic">No progress reports yet. Log a therapy session to see feedback here.</p>
               )}
             </div>
           </CardContent>

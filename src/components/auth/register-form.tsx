@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 const RegisterSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
@@ -29,7 +29,6 @@ const RegisterSchema = z.object({
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -44,14 +43,11 @@ export const RegisterForm = () => {
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
-    setSuccess("");
 
     startTransition(() => {
       registerAction(values).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
-        if (data?.success) {
-          form.reset();
+        if (data?.error) {
+          setError(data.error);
         }
       });
     });
@@ -142,13 +138,6 @@ export const RegisterForm = () => {
           </div>
         )}
         
-        {success && (
-          <div className="bg-emerald-500/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-emerald-500">
-            <CheckCircle2 className="h-4 w-4" />
-            <p>{success}</p>
-          </div>
-        )}
-
         <Button disabled={isPending} type="submit" className="w-full h-11">
           Register
         </Button>

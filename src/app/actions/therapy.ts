@@ -107,21 +107,6 @@ export async function createTherapyPlanAction(values: z.infer<typeof PlanSchema>
   }
 }
 
-export async function updateTherapyPlanStatusAction(planId: string, status: "Active" | "Paused" | "Completed") {
-  const userSession = await auth();
-  if (!userSession?.user?.id) return { error: "Unauthorized" };
-
-  const plan = await prisma.therapyPlan.findFirst({
-    where: { id: planId, child: { userId: userSession.user.id } },
-  });
-  if (!plan) return { error: "Plan not found or access denied." };
-
-  await prisma.therapyPlan.update({ where: { id: planId }, data: { status } });
-  revalidatePath("/dashboard/therapy");
-  revalidatePath("/dashboard");
-  return { success: true };
-}
-
 const GameFeedbackSchema = z.object({
   childId: z.string().min(1),
   gameSlug: z.string().min(1),
@@ -133,15 +118,10 @@ const GameFeedbackSchema = z.object({
 export async function submitInteractiveGameFeedbackAction(values: z.infer<typeof GameFeedbackSchema>) {
   const userSession = await auth();
   if (!userSession?.user?.id) return { error: "Unauthorized" };
-
   const parsed = GameFeedbackSchema.safeParse(values);
   if (!parsed.success) return { error: "Invalid game payload." };
-
-  const child = await prisma.child.findFirst({
-    where: { id: parsed.data.childId, userId: userSession.user.id },
-  });
+  const child = await prisma.child.findFirst({ where: { id: parsed.data.childId, userId: userSession.user.id } });
   if (!child) return { error: "Child not found or access denied." };
-
   const improving = parsed.data.score >= 6;
   try {
     await prisma.progressReport.create({
@@ -156,9 +136,7 @@ export async function submitInteractiveGameFeedbackAction(values: z.infer<typeof
           feedbackAgent: improving ? "continue_plan" : "adjust_therapy",
           recordedAt: new Date().toISOString(),
         }),
-        concerns: improving
-          ? null
-          : "Feedback agent: game performance suggests shorter rounds or a different activity next session.",
+        concerns: improving ? null : "Feedback agent: game performance suggests shorter rounds or a different activity next session.",
       },
     });
     revalidatePath("/monitoring");
@@ -168,4 +146,19 @@ export async function submitInteractiveGameFeedbackAction(values: z.infer<typeof
   } catch {
     return { error: "Could not save game feedback." };
   }
+}
+
+export async function updateTherapyPlanStatusAction(planId: string, status: "Active" | "Paused" | "Completed") {
+  const userSession = await auth();
+  if (!userSession?.user?.id) return { error: "Unauthorized" };
+
+  const plan = await prisma.therapyPlan.findFirst({
+    where: { id: planId, child: { userId: userSession.user.id } },
+  });
+  if (!plan) return { error: "Plan not found or access denied." };
+
+  await prisma.therapyPlan.update({ where: { id: planId }, data: { status } });
+  revalidatePath("/dashboard/therapy");
+  revalidatePath("/dashboard");
+  return { success: true };
 }

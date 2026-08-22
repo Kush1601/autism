@@ -8,12 +8,13 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isAuthPage = nextUrl.pathname.startsWith("/login") || nextUrl.pathname.startsWith("/register");
-      const isDashboardPage = nextUrl.pathname.startsWith("/dashboard") || 
-                              nextUrl.pathname.startsWith("/screening") || 
+      const isDashboardPage = nextUrl.pathname.startsWith("/dashboard") ||
+                              nextUrl.pathname.startsWith("/screening") ||
                               nextUrl.pathname.startsWith("/results") ||
                               nextUrl.pathname.startsWith("/chatbot") ||
                               nextUrl.pathname.startsWith("/monitoring") ||
-                              nextUrl.pathname.startsWith("/therapy");
+                              nextUrl.pathname.startsWith("/therapy") ||
+                              nextUrl.pathname.startsWith("/feedback");
 
       if (isDashboardPage) {
         if (isLoggedIn) return true;

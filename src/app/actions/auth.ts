@@ -43,7 +43,18 @@ export async function registerAction(values: z.infer<typeof RegisterSchema>) {
     },
   });
 
-  return { success: "User created successfully!" };
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: "/dashboard",
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return { error: "Account created — please sign in." };
+    }
+    throw error;
+  }
 }
 
 export async function loginAction(values: z.infer<typeof LoginSchema>) {

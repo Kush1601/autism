@@ -27,7 +27,7 @@ export default async function DashboardPage() {
       {/* Aggregate stats */}
       {children.length > 0 && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="border-none shadow-sm bg-emerald-50/60">
+          <Card className="border-none shadow-sm bg-pine-50/60">
             <CardContent className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <Users className="h-5 w-5 text-primary" />
@@ -38,10 +38,10 @@ export default async function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-sm bg-blue-50/60">
+          <Card className="border-none shadow-sm bg-secondary/60">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                <ClipboardList className="h-5 w-5 text-blue-600" />
+              <div className="h-10 w-10 rounded-xl bg-foreground/10 flex items-center justify-center shrink-0">
+                <ClipboardList className="h-5 w-5 text-foreground" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-neutral-900">{totalScreenings}</p>
@@ -49,10 +49,10 @@ export default async function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-sm bg-purple-50/60">
+          <Card className="border-none shadow-sm bg-amber-50/60">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
-                <Gamepad2 className="h-5 w-5 text-purple-600" />
+              <div className="h-10 w-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+                <Gamepad2 className="h-5 w-5 text-amber-700" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-neutral-900">{activeTherapyPlans}</p>
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
                       <span className="text-neutral-500">Risk Level:</span>
                       <span className={`px-2 py-0.5 rounded-full text-white text-xs font-bold ${
                         child.screenings[0].riskLevel === "High" ? "bg-red-500" :
-                        child.screenings[0].riskLevel === "Medium" ? "bg-orange-500" : "bg-emerald-500"
+                        child.screenings[0].riskLevel === "Medium" ? "bg-orange-500" : "bg-pine-500"
                       }`}>
                         {child.screenings[0].riskLevel}
                       </span>
